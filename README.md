@@ -16,6 +16,8 @@
 
 - docker-compose.yml best practices: https://dev.to/wallacefreitas/10-best-practices-for-writing-maintainable-docker-compose-files-4ca2
 - oficial docker images: https://hub.docker.com/
+- Dockerfile best practices: https://developers.redhat.com/articles/2023/03/23/10-tips-writing-secure-maintainable-dockerfiles
+- Alpine penultimate, stable version (at this moment): https://hub.docker.com/layers/library/alpine/3.23.2/images/sha256-16ff8a639f58b38d94b054e94c106dbbd8a60d45f8b1989f98516a3e8e0792ad
 
 ## Use of AI
 - Check the syntax of docker-compose.yml and where to specify the services' version.
