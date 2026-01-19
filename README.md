@@ -14,6 +14,9 @@
 # Resources (references related to the topic)
 ## Links
 
-## Use of AI
+- docker-compose.yml best practices: https://dev.to/wallacefreitas/10-best-practices-for-writing-maintainable-docker-compose-files-4ca2
+- oficial docker images: https://hub.docker.com/
 
+## Use of AI
+- Check the syntax of docker-compose.yml and where to specify the services' version.
 
