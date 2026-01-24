@@ -2,24 +2,28 @@ version: "3.9"
 
 services:
 # # ? MariaDB database service
-#   mariadb:
-#     container_name: mariadb
-#     build: ./requirements/mariadb
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    env_file:
+      - ../.env
 #     restart: always
-#     volumes:
-#       - wordpress_db:/var/lib/mysql
+    volumes:
+      - wordpress_db:/var/lib/mysql
 #     networks:
 #       - docker-network
 
 # # ? Wordpress website service
   wordpress:
-#     container_name: wordpress
+    container_name: wordpress
     build: requirements/wordpress
+    env_file:
+      - ../.env
 #     restart: always
 #     volumes:
 #       - wordpress_files:/var/www/html
-#     depends_on:
-#       - mariadb
+    depends_on:
+      - mariadb
 #     networks:
 #       - docker-network
 
@@ -37,9 +41,9 @@ services:
 
 
 # # ? Volumes for persistent data
-# volumes:
-#   wordpress_db:
-#     driver: local
+volumes:
+  wordpress_db:
+    driver: local
 #   wordpress_files:
 #     driver: local
 
