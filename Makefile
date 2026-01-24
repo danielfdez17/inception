@@ -8,6 +8,9 @@ down:
 clean:
 	docker system prune -a --volumes -f
 
-re: clean all down
+st:
+	docker ps
 
-.PHONY: all down clean re
+re: down clean all
+
+.PHONY: all down clean re st
