@@ -54,8 +54,31 @@ for service in "$@"; do
     [ -f "$SERVICE_DIR/Dockerfile" ] || touch "$SERVICE_DIR/Dockerfile"
 
     # Archivo de configuración <service>.conf
-    CONF_FILE="$CONF_DIR/$service.conf"
+    if [ "$service" = "mariadb" ]; then
+        CONF_FILE="$CONF_DIR/$service.cnf"
+    else
+        CONF_FILE="$CONF_DIR/$service.conf"
+    fi
     [ -f "$CONF_FILE" ] || touch "$CONF_FILE"
+
+    # Setup script for the service
+    SETUP_FILE="$SERVICE_DIR/tools/setup_$service.sh"
+    if [ ! -f "$SETUP_FILE" ]; then
+        cat > "$SETUP_FILE" << 'EOF'
+#!/bin/bash
+
+# Setup script for service initialization
+
+set -e
+
+echo "Setting up service..."
+
+# Add service-specific setup commands here
+
+echo "Setup completed successfully"
+EOF
+        chmod +x "$SETUP_FILE"
+    fi
 done
 
 echo "Estructura creada correctamente ✔"
