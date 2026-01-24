@@ -10,8 +10,8 @@ services:
 #     restart: always
     volumes:
       - wordpress_db:/var/lib/mysql
-#     networks:
-#       - docker-network
+    networks:
+      - docker-network
 
 # # ? Wordpress website service
   wordpress:
@@ -24,8 +24,8 @@ services:
 #       - wordpress_files:/var/www/html
     depends_on:
       - mariadb
-#     networks:
-#       - docker-network
+    networks:
+      - docker-network
 
 # ? Nginx server service
   nginx:
@@ -36,8 +36,8 @@ services:
       - "443:443"
     depends_on:
       - wordpress
-    # networks:
-    #   - docker-network
+    networks:
+      - docker-network
 
 
 # # ? Volumes for persistent data
@@ -48,6 +48,6 @@ volumes:
 #     driver: local
 
 # # ? Private network for inter-service communication
-# networks:
-#   docker-network:
-#     driver: bridge
+networks:
+  docker-network:
+    driver: bridge
