@@ -1,7 +1,18 @@
 # ! WORDPRESS Dockerfile
-FROM alpine:3.22.2
-RUN apk update && apk add wordpress php7 php7-fpm php7-mysqli php7-opcache php7-gd php7-curl php7-mbstring php7-xml php7-zip php7-phar php7-dom php7-iconv php7-session php7-json php7-common php7-intl php7-fileinfo
-COPY ./srcs/requirements/wordpress/ /tmp/
-RUN sh /tmp/setup.sh
-EXPOSE 9000
-CMD ["sh", "/tmp/start.sh"]
+# ? Sistema/Imagen base del que construir el servicio
+FROM alpine:3.20
+
+# ? Comandos ejecutados al construir la imagen
+RUN apk update && apk add --no-cache php83 php83-fpm php83-mysqli php83-json php83-opcache php83-curl php83-phar php83-mbstring php83-xml php83-zip wget tar
+
+RUN mkdir -p /var/www/html
+
+WORKDIR /var/www/html
+
+COPY tools/setup.sh /setup.sh
+COPY conf/wp-config.php /wp-config.php
+
+RUN chmod +x /setup.sh
+
+# ? Comando que se ejecuta al arrancar
+CMD ["/setup.sh"]
