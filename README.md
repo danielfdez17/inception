@@ -21,4 +21,4 @@
 
 ## Use of AI
 - Check the syntax of docker-compose.yml and where to specify the services' version.
-
+- Generate a script that initializes folder structure and secret files
