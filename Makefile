@@ -13,4 +13,7 @@ st:
 
 re: down clean all
 
+kill:
+	docker-compose -f srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
+
 .PHONY: all down clean re st
