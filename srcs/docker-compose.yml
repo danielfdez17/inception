@@ -11,6 +11,18 @@ services:
 #     networks:
 #       - docker-network
 
+# # ? Wordpress website service
+  wordpress:
+#     container_name: wordpress
+    build: requirements/wordpress
+#     restart: always
+#     volumes:
+#       - wordpress_files:/var/www/html
+#     depends_on:
+#       - mariadb
+#     networks:
+#       - docker-network
+
 # ? Nginx server service
   nginx:
     container_name: nginx
@@ -23,17 +35,6 @@ services:
     # networks:
     #   - docker-network
 
-# # ? Wordpress website service
-  wordpress:
-#     container_name: wordpress
-    build: requirements/wordpress
-#     restart: always
-#     volumes:
-#       - wordpress_files:/var/www/html
-#     depends_on:
-#       - mariadb
-#     networks:
-#       - docker-network
 
 # # ? Volumes for persistent data
 # volumes:
