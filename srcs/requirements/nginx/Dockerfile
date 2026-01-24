@@ -3,9 +3,7 @@
 FROM alpine:3.20
 
 # ? Comandos ejecutados al construir la imagen
-RUN apk update && apk add --no-cache \
-	nginx \
-	openssl
+RUN apk update && apk add --no-cache nginx openssl
 
 RUN mkdir -p /etc/nginx/ssl
 
