@@ -1,48 +1,48 @@
 version: "3.9"
 
 services:
-# ? MariaDB database service
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
-    restart: always
-    volumes:
-      - wordpress_db:/var/lib/mysql
-    networks:
-      - docker-network
+# # ? MariaDB database service
+#   mariadb:
+#     container_name: mariadb
+#     build: ./requirements/mariadb
+#     restart: always
+#     volumes:
+#       - wordpress_db:/var/lib/mysql
+#     networks:
+#       - docker-network
 
 # ? Nginx server service
   nginx:
     container_name: nginx
-    build: ./requirements/nginx
+    build: requirements/nginx
     restart: always
     ports:
-      - "80:80"
-    depends_on:
-      - wordpress
-    networks:
-      - docker-network
+      - "443:443"
+    # depends_on:
+    #   - wordpress
+    # networks:
+    #   - docker-network
 
-# ? Wordpress website service
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress
-    restart: always
-    volumes:
-      - wordpress_files:/var/www/html
-    depends_on:
-      - mariadb
-    networks:
-      - docker-network
+# # ? Wordpress website service
+#   wordpress:
+#     container_name: wordpress
+#     build: ./requirements/wordpress
+#     restart: always
+#     volumes:
+#       - wordpress_files:/var/www/html
+#     depends_on:
+#       - mariadb
+#     networks:
+#       - docker-network
 
-# ? Volumes for persistent data
-volumes:
-  wordpress_db:
-    driver: local
-  wordpress_files:
-    driver: local
+# # ? Volumes for persistent data
+# volumes:
+#   wordpress_db:
+#     driver: local
+#   wordpress_files:
+#     driver: local
 
-# ? Private network for inter-service communication
-networks:
-  docker-network:
-    driver: bridge
+# # ? Private network for inter-service communication
+# networks:
+#   docker-network:
+#     driver: bridge

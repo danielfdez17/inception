@@ -1,11 +1,18 @@
-# # ! NGINX Dockerfile
-# FROM alpine:3.22.2
-# RUN apk update && apk add nginx
-# COPY ./srcs/requirements/nginx/ /tmp/
-# RUN sh /tmp/setup.sh
-# EXPOSE 80 443
-# CMD ["sh", "/tmp/start.sh"]
+# ! NGINX Dockerfile
+# ? Sistema/Imagen base del que construir el servicio
+FROM alpine:3.20
 
-FROM debian:bullseye
-RUN apt update && apt upgrade -y && apt install -y nginx
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# ? Comandos ejecutados al construir la imagen
+RUN apk update && apk add --no-cache \
+	nginx \
+	openssl
+
+RUN mkdir -p /etc/nginx/ssl
+
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY tools/setup.sh /setup.sh
+
+RUN chmod +x /setup.sh
+
+# ? Comando que se ejecuta al arrancar
+CMD ["/setup.sh"]
