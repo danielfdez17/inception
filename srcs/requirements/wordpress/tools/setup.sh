@@ -2,7 +2,7 @@
 set -e
 
 echo "Waiting for MariaDB..."
-while ! mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
+while ! mysqladmin ping -h mariadb -u root -p"$MYSQL_ROOT_PASSWORD" --silent; do
     sleep 2
 done
 echo "MariaDB is up!"
@@ -15,6 +15,8 @@ if [ ! -f wp-config.php ]; then
 	rm -rf wordpress latest.tar.gz
 	cp /wp-config.php wp-config.php
 fi
+
+mkdir -p /var/www/html
 
 wp core install \
 	--url=danfern3.42.fr \
