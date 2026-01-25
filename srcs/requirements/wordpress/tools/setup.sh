@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+echo "Waiting for MariaDB..."
+while ! mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
+    sleep 2
+done
+echo "MariaDB is up!"
+
+
 if [ ! -f wp-config.php ]; then
 	wget https://wordpress.org/latest.tar.gz
 	tar -xzf latest.tar.gz
