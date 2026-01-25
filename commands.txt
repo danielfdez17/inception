@@ -26,3 +26,4 @@
 - python3 --version (to check if python3 is installed)
 - sudo apt install python3-pip
 - pip install distutils
+- sudo apt install vim
