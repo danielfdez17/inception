@@ -3,16 +3,19 @@
 FROM alpine:3.20
 
 # ? Comandos ejecutados al construir la imagen
-RUN apk update && apk add --no-cache php83 php83-fpm php83-mysqli php83-json php83-opcache php83-curl php83-phar php83-mbstring php83-xml php83-zip wget tar curl mariadb-client
+# RUN apk update && apk add --no-cache php83 php83-fpm php83-mysqli php83-json php83-opcache php83-curl php83-phar php83-mbstring php83-xml php83-zip wget tar curl mariadb-client
+RUN apk update && apk add --no-cache php7.4-fpm php7.4-mysqli curl
 
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir -p /var/www/html
+# RUN mkdir -p /var/www/html
 
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 
 COPY tools/setup.sh /setup.sh
-COPY conf/wp-config.php /wp-config.php
+# COPY conf/wp-config.php /wp-config.php
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/.
 
 RUN chmod +x /setup.sh
 
