@@ -20,8 +20,8 @@ services:
     env_file:
       - .env
     restart: unless-stopped
-#     volumes:
-#       - wordpress_files:/var/www/html
+    volumes:
+      - wordpress_files:/var/www/html
     depends_on:
       - mariadb
     networks:
@@ -34,6 +34,8 @@ services:
     restart: unless-stopped
     ports:
       - "443:443"
+    volumes:
+      - wordpress_files:/var/www/html
     depends_on:
       - wordpress
     networks:
@@ -44,8 +46,8 @@ services:
 volumes:
   wordpress_db:
     driver: local
-#   wordpress_files:
-#     driver: local
+  wordpress_files:
+    driver: local
 
 # # ? Private network for inter-service communication
 networks:

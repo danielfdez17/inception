@@ -30,6 +30,8 @@ wp user create editor_user editor@42.fr \
 	--user_pass=editorpass \
 	--allow-root
 
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 
 mkdir -p /run/php
 
