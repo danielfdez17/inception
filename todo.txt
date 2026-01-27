@@ -1,0 +1,1 @@
+- wordpress' service doesn't work on 42 pcs
