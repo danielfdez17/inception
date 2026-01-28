@@ -20,7 +20,7 @@ RUN apk update && apk add --no-cache \
     wget \
     mariadb-client
 
-RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+RUN mkdir -p /run/php && chown -R nignx:nginx /run/php
 # RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 # RUN mkdir -p /var/www/html
