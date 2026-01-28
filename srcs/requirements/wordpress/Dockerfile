@@ -1,24 +1,20 @@
 # ! WORDPRESS Dockerfile
 # ? Sistema/Imagen base del que construir el servicio
-FROM alpine:3.20
+# FROM alpine:3.20
+FROM debian:12
 
 # ? Comandos ejecutados al construir la imagen
 # RUN apk update && apk add --no-cache php83 php83-fpm php83-mysqli php83-json php83-opcache php83-curl php83-phar php83-mbstring php83-xml php83-zip wget tar curl mariadb-client
-RUN apk update && apk add --no-cache \
-    php83 \
-    php83-fpm \
-    php83-mysqli \
-    php83-json \
-    php83-curl \
-    php83-mbstring \
-    php83-xml \
-    php83-openssl \
-    php83-session \
-    php83-zip \
-    php83-phar \
-    curl \
-    wget \
-    mariadb-client
+RUN apt-get update && apt-get install \
+	php8.2-fpm \
+	php8.2-mysql \
+	php8.2-cli \
+	php8.2-curl \
+	php8.2-xml \
+	php8.2-mbstring \
+	wget \
+	mariadb-client \
+	&& rm -rf /var/lib/apt/lists
 
 # Adding user and group
 #RUN addgroup -S www-data && adduser -S www-data -G www-data
