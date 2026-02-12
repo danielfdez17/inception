@@ -1,2 +1,7 @@
 - wordpress' service doesn't work on 42 pcs
 - restart with debian instead of alpine
+
+
+ALPINE:
+	- when trying to connect to https://localhost i get a 403 - Forbidden
+	- docker logs wordpress -> 'Waiting for MariaDB...'
