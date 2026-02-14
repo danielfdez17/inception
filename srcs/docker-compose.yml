@@ -54,6 +54,12 @@ services:
         condition: service_healthy
     networks:
       - docker-network
+    healthcheck:
+      test: ["CMD-SHELL", "pidof nginx || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 
 # # ? Volumes for persistent data
