@@ -3,11 +3,28 @@
 echo "Updating package lists..."
 sudo apt update && sudo apt upgrade -y
 
+echo "Installing zsh..."
+sudo apt install zsh -y
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 echo "Installing Visual Studio Code..."
 sudo snap install --classic code
 
 echo "Installing Git..."
 sudo apt install git -y
+
+echo "Creating Git aliases..."
+alias ga='git add'
+alias gbr='git branch'
+alias gc='git commit -m'
+alias gl='git log --graph --oneline --decorate'
+alias gls='git ls-files'
+alias gm='git merge'
+alias gp='git push'
+alias gpr='git pull --rebase'
+alias grep='grep --color=auto'
+alias gs='git status -s'
+alias gw='git worktree'
 
 echo "Installing Docker"
 sudo apt update && sudo apt upgrade -y
