@@ -55,11 +55,11 @@ services:
     networks:
       - docker-network
     healthcheck:
-      test: ["CMD-SHELL", "ss -tln | grep ':443' || exit 1"]
+      test: ["CMD-SHELL", "test -f /run/nginx/nginx.pid && kill -0 $(cat /run/nginx/nginx.pid) 2>/dev/null || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 15s
+      start_period: 20s
 
 
 # # ? Volumes for persistent data

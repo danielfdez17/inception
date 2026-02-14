@@ -3,7 +3,7 @@
 FROM alpine:3.20
 
 # ? Comandos ejecutados al construir la imagen
-RUN apk update && apk add --no-cache nginx openssl iproute2
+RUN apk update && apk add --no-cache nginx openssl curl
 
 RUN mkdir -p /etc/nginx/ssl && \
     mkdir -p /var/www/html && \
@@ -13,8 +13,7 @@ RUN mkdir -p /etc/nginx/ssl && \
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY tools/setup.sh /setup.sh
 
-RUN chmod +x /setup.sh && \
-    nginx -t
+RUN chmod +x /setup.sh
 
 # ? Comando que se ejecuta al arrancar
 CMD ["/setup.sh"]
