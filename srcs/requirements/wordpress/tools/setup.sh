@@ -1,43 +1,49 @@
 #!/bin/sh
- set -e
+set -e
 
- echo "Waiting for MariaDB..."
- while ! mysqladmin ping -h mariadb -u root -p"$MYSQL_ROOT_PASSWORD" --silent; do
-     sleep 2
- done
- echo "MariaDB is up!"
+echo "Waiting for MariaDB..."
+while ! mysqladmin ping -h mariadb -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
+    sleep 2
+done
+echo "MariaDB is up!"
 
+# Download and setup WordPress if not already present
+if [ ! -f wp-config.php ]; then
+    echo "Installing WordPress..."
+    wget https://wordpress.org/latest.tar.gz
+    tar -xzf latest.tar.gz
+    mv wordpress/* .
+    rm -rf wordpress latest.tar.gz
+    cp /wp-config.php wp-config.php
+    
+    # Install WordPress core
+    wp core install \
+        --url=danfern3.42.fr \
+        --title="Inception" \
+        --admin_user=danfern3 \
+        --admin_password=inceptionPassword \
+        --admin_email=danfern3@student.42.fr \
+        --skip-email \
+        --allow-root
+    
+    # Create additional user
+    wp user create editor_user editor@42.fr \
+        --role=editor \
+        --user_pass=editorpass \
+        --allow-root
+    
+    echo "WordPress installation complete!"
+fi
 
- if [ ! -f wp-config.php ]; then
- 	wget https://wordpress.org/latest.tar.gz
- 	tar -xzf latest.tar.gz
- 	mv wordpress/* .
-	rm -rf wordpress latest.tar.gz
- 	cp /wp-config.php wp-config.php
- fi
+# Set proper permissions
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 
- mkdir -p /var/www/html
+# Ensure PHP-FPM run directory exists
+mkdir -p /run/php
 
- wp core install \
- 	--url=danfern3.42.fr \
- 	--title="Inception" \
- 	--admin_user=danfern3 \
- 	--admin_password=inceptionPassword \
- 	--admin_email=danfern3@student.42.fr \
- 	--skip-email \
- 	--allow-root
-
- wp user create editor_user editor@42.fr \
- 	--role=editor \
- 	--user_pass=editorpass \
- 	--allow-root
-
- chown -R www-data:www-data /var/www/html
- chmod -R 755 /var/www/html
-
- mkdir -p /run/php
-
- exec php-fpm83 -F
+# Start PHP-FPM
+exec php-fpm83 -F
 
 #cd /var/www/html
 #curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

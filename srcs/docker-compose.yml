@@ -12,6 +12,12 @@ services:
       - wordpress_db:/var/lib/mysql
     networks:
       - docker-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 # # ? Wordpress website service
   wordpress:
@@ -23,9 +29,16 @@ services:
     volumes:
       - wordpress_files:/var/www/html
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     networks:
       - docker-network
+    healthcheck:
+      test: ["CMD-SHELL", "pidof php-fpm83 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 # ? Nginx server service
   nginx:
@@ -37,7 +50,8 @@ services:
     volumes:
       - wordpress_files:/var/www/html
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
     networks:
       - docker-network
 

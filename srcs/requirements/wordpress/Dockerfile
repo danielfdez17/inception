@@ -21,17 +21,21 @@ RUN apk update && apk add --no-cache \
     mariadb-client
 
 # Adding user and group
-#RUN addgroup -S www-data && adduser -S www-data -G www-data
 RUN mkdir -p /run/php
-# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
-# RUN mkdir -p /var/www/html
+# Install WP-CLI
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
 
-# WORKDIR /var/www/html
+# Create working directory
+RUN mkdir -p /var/www/html
+
+WORKDIR /var/www/html
 
 COPY tools/setup.sh /setup.sh
-# COPY conf/wp-config.php /wp-config.php
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/.
+COPY conf/wp-config.php /wp-config.php
+COPY conf/www.conf /etc/php83/php-fpm.d/www.conf
 
 RUN chmod +x /setup.sh
 
