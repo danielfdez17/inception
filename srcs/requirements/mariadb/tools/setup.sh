@@ -7,7 +7,9 @@ fi
 
 mysqld_safe &
 
-sleep 5
+until mysqladmin ping --silent; do
+	sleep 1
+done
 
 mysql << EOF
 FLUSH PRIVILEGES;
