@@ -6,7 +6,7 @@ down:
 build:
 	docker-compose -f srcs/docker-compose.yml build --no-cache
 
-up:
+up: build
 	docker-compose -f srcs/docker-compose.yml up
 
 clean:

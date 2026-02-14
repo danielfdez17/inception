@@ -6,6 +6,7 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing zsh..."
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chsh -s $(which zsh)
 
 echo "Installing Visual Studio Code..."
 sudo snap install --classic code
@@ -23,7 +24,7 @@ alias gm='git merge'
 alias gp='git push'
 alias gpr='git pull --rebase'
 alias grep='grep --color=auto'
-alias gs='git status -s'
+alias gss='git status -s'
 alias gw='git worktree'
 
 echo "Installing Docker"
@@ -61,3 +62,5 @@ pip install distutils
 
 echo "Installing Vim"
 sudo apt install vim -y
+
+echo "Once the repo has been clone, run 'sudo chmod 777 -R .git/'"
