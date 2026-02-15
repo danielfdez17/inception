@@ -1,22 +1,10 @@
 # ! NGINX Dockerfile
-# ? Sistema/Imagen base del que construir el servicio
-# FROM alpine:3.20
-FROM debian:12
+# ? Base Image for nginx service
+# FROM debian:11
+FROM debian:bullseye
 
-# ? Comandos ejecutados al construir la imagen
-# RUN apk update && apk add --no-cache nginx openssl
-RUN apt-get update && apt-get install -y \
-	nginx \
-	openssl \
-	&& rm -rf /var/lib/apt/lists/
+# ? Executed commands to build the image
+RUN apt update && apt upgrade -y && apt install -y nginx
 
-RUN mkdir -p /etc/nginx/ssl
-RUN mkdir -p /var/www/html
-
-COPY conf/nginx.conf /etc/nginx/nginx.conf
-COPY tools/setup.sh /setup.sh
-
-RUN chmod +x /setup.sh
-
-# ? Comando que se ejecuta al arrancar
-CMD ["/setup.sh"]
+# ? Executed command when the container starts
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
