@@ -1,11 +1,10 @@
-# ! WORDPRESS Dockerfile
-# ? Base Image for wordpress service
-# FROM debian:11
 FROM debian:bullseye
-
-# ? Executed commands to build the image
-# RUN apk update && apk add --no-cache php83 php83-fpm php83-mysqli php83-json php83-opcache php83-curl php83-phar php83-mbstring php83-xml php83-zip wget tar curl mariadb-client
-RUN apt update && apt upgrade -y && apt install -y php-fpm vim
-
-# ? Executed command when the container starts
-CMD ["tail", "-f", "/dev/null"]
+RUN apt update && apt upgrade -y && apt install -y \
+php7.4-fpm \
+php7.4-mysqli \
+curl 
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/.
+COPY ./tools/wp-setup.sh .
+RUN chmod +x ./wp-setup.sh
+ENTRYPOINT ["sh", "./wp-setup.sh"]

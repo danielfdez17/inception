@@ -1,56 +1,77 @@
 version: "3.9"
 
 services:
-# # ? MariaDB database service
-  # mariadb:
-  #   container_name: mariadb
-  #   build: requirements/mariadb
-  #   env_file:
-  #     - .env
-  #   restart: unless-stopped
-  #   volumes:
-  #     - wordpress_db:/var/lib/mysql
-  #   networks:
-      # - docker-network
+# ? MariaDB database service
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    restart: on-failure
+    networks:
+      - inception
+    expose:
+      - "3306"
+    volumes:
+      - v_db:/var/lib/mysql
+    env_file:
+      - .env
 
-# # ? Wordpress website service
+# ? Wordpress website service
   wordpress:
-    container_name: wordpress
     build: requirements/wordpress
-    # env_file:
-    #   - .env
-    # restart: unless-stopped
-    # volumes:
-    #   - wordpress_files:/var/www/html
-    # depends_on:
-    #   - mariadb
-    # networks:
-    #   - docker-network
+    container_name: wordpress
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    expose:
+      - "9000"
+    volumes:
+      - v_web:/var/www/html
+    env_file:
+      - .env
 
 # ? Nginx server service
   nginx:
+    build: 
+      context: requirements/nginx
+      args:
+        - CRED_PATH
+        - CRED_CERT
+        - CRED_KEY
+        - COUNTRY
+        - STATE
+        - LOCALITY
+        - ORGANIZATION
+        - ORG_UNIT
+        - COMMON_NAME
     container_name: nginx
-    build: requirements/nginx
-    # restart: unless-stopped
+    restart: on-failure
+    depends_on:
+      - wordpress
+    networks:
+      - inception
     ports:
-      - "80:80"
-      # - "443:443"
-    # volumes:
-    #   - wordpress_files:/var/www/html
-    # depends_on:
-    #   - wordpress
-    # networks:
-    #   - docker-network
+      - "443:443"
+    volumes:
+      - v_web:/var/www/html
 
 
-# # ? Volumes for persistent data
-# volumes:
-#   wordpress_db:
-#     driver: local
-#   wordpress_files:
-#     driver: local
+# ? Volumes for persistent data
+  v_web:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ../home/danfern3/data/wordpress
+  v_db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ../home/danfern3/data/mariadb
 
-# # ? Private network for inter-service communication
-# networks:
-#   docker-network:
-#     driver: bridge
+# ? Private network for inter-service communication
+networks:
+  inception:
+    driver: bridge
