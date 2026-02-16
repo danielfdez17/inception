@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# todo: this files must be in the VM once the project has been closed
+
 # .env (no sobreescribir)
 echo "DOMAIN_NAME=danfern3.42.fr" > "srcs/.env"
 echo >> "srcs/.env"
@@ -21,4 +23,4 @@ echo "WP_USER=user" >> "srcs/.env"
 echo "WP_PASSWORD=user_password" >> "srcs/.env"
 echo "WP_DOMAIN=danfern3.42.fr" >> "srcs/.env"
 
-echo "✔ .env"
+echo "Created .env file with necessary environment variables for the project."
