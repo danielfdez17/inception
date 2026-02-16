@@ -5,7 +5,7 @@
 
 ## Secrets
 
-# How to build and launch the project (Makefile + Dockerfile)
+# How to build and launch the project (Makefile + Docker Compose)
 
 # Relevant commands to deal with containers and volumes
 

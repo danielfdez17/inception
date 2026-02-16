@@ -1,4 +1,11 @@
 
+setup:
+	@echo "Setting up development environment..."
+	sh install.sh
+	@echo "Creating environment variables..."
+	sh scripts/env.sh
+	@echo "Creating volumes..."
+	sh scripts/volumes.sh
 
 down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
