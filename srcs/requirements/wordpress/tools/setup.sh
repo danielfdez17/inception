@@ -1,56 +1,66 @@
 #!/bin/sh
+
 set -e
 
-echo "Waiting for MariaDB..."
-while ! mysqladmin ping -h mariadb -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
-    sleep 2
-done
-echo "MariaDB is up!"
+cd /var/www/html
+
+# Download and setup WordPress if not already present
+if [ ! -f wp-cli.phar ]; then
+	echo "Installing WordPress-CLI..."
+	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	chmod +x wp-cli.phar
+fi
 
 # Download and setup WordPress if not already present
 if [ ! -f wp-config.php ]; then
-    echo "Installing WordPress..."
-    wget https://wordpress.org/latest.tar.gz
-    tar -xzf latest.tar.gz
-    mv wordpress/* .
-    rm -rf wordpress latest.tar.gz
-    cp /wp-config.php wp-config.php
-    
-    # Install WordPress core
-    wp core install \
-        --url=danfern3.42.fr \
-        --title="Inception" \
-        --admin_user=danfern3 \
-        --admin_password=inceptionPassword \
-        --admin_email=danfern3@student.42.fr \
-        --skip-email \
-        --allow-root
-    
-    # Create additional user
-    wp user create editor_user editor@42.fr \
-        --role=editor \
-        --user_pass=editorpass \
-        --allow-root
-    
-    echo "WordPress installation complete!"
+	echo "Installing WordPress..."
+	php wp-cli.phar core download --allow-root
+	
+	echo "Creating wp-config.php..."
+	php wp-cli.phar config create \
+		--dbname=${MARIADB_DATABASE} \
+		--dbuser=${MARIADB_USER} \
+		--dbpass=${MARIADB_PASSWORD} \
+		--dbhost=mariadb \
+		--allow-root
+
+	echo "Waiting for MariaDB to be ready..."
+	until mysql -h mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -e "SELECT 1" >/dev/null 2>&1; do
+		echo "MariaDB is unavailable - sleeping"
+		sleep 2
+	done
+	echo "MariaDB is ready!"
 fi
 
-# Set proper permissions
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
+# Verificar si el usuario admin existe
+if ! php wp-cli.phar user get ${WORDPRESS_ADMIN_USER} --allow-root 2>/dev/null; then
+	echo "Installing WordPress..."
+	
+	# Si dice que ya está instalado pero no hay usuario, resetear la BD
+	if php wp-cli.phar core is-installed --allow-root 2>/dev/null; then
+		echo "WordPress tables exist but installation is incomplete. Resetting..."
+		php wp-cli.phar db reset --yes --allow-root
+	fi
+	php wp-cli.phar core install \
+		--url=${WORDPRESS_URL} \
+		--title="${WORDPRESS_TITLE}" \
+		--admin_user=${WORDPRESS_ADMIN_USER} \
+		--admin_password=${WORDPRESS_ADMIN_PASSWORD} \
+		--admin_email=${WORDPRESS_ADMIN_USER}@example.com \
+		--skip-email \
+		--allow-root
+	
+	echo "WordPress installation complete!"
+else
+	echo "WordPress is already installed."
+fi
 
-# Ensure PHP-FPM run directory exists
-mkdir -p /run/php
+# # Set proper permissions
+# chown -R www-data:www-data /var/www/html
+# chmod -R 755 /var/www/html
+
+# # Ensure PHP-FPM run directory exists
+# mkdir -p /run/php
 
 # Start PHP-FPM
-exec php-fpm83 -F
-
-#cd /var/www/html
-#curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-#chmod +x wp-cli.phar
-#sleep 5
-#./wp-cli.phar core download --allow-root
-#./wp-cli.phar config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --allow-root
-#./wp-cli.phar core install --url=$WP_DOMAIN --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --allow-root
-#./wp-cli.phar user create $WP_GUEST_USER $WP_GUEST_EMAIL --role=subscriber --user_pass=$WP_GUEST_PASSWORD --allow-root
-#php-fpm83 -F
+exec php-fpm82 -F
