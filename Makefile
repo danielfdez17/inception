@@ -1,4 +1,5 @@
 
+all: build up
 
 down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
@@ -25,6 +26,6 @@ kill:
 	@echo "Killing all running containers..."
 	docker-compose -f srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
 
-re: down kill clean build up
+re: down kill clean all
 
 .PHONY: all down clean re st
