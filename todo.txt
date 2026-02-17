@@ -5,3 +5,6 @@
 ALPINE:
 	- when trying to connect to https://localhost i get a 403 - Forbidden
 	- docker logs wordpress -> 'Waiting for MariaDB...'
+
+- install lubuntu
+- add danfern3.42.fr to /etc/hosts
