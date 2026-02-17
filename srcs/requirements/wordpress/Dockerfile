@@ -1,5 +1,14 @@
-# ! WORDPRESS Dockerfile
-# ? Sistema/Imagen base del que construir el servicio
+
+# Funcionamiento de Dockerfile para Wordpress
+# Este Dockerfile crea una imagen de Wordpress/php-fpm basada en Alpine Linux.
+
+# Sintaxis básica:
+    # FROM <imagen_base>
+    # RUN <comando_para_ejecutar>
+    # COPY <origen> <destino>
+    # CMD <comando_por_defecto_en_json>
+
+# Ultima version es 3.22.2 al momento de hacerlo
 FROM alpine:3.19
 
 # Instalamos PHP y las extensiones necesarias
@@ -29,18 +38,14 @@ RUN apk update && apk add --no-cache \
     bash
 
 RUN echo "memory_limit = 256M" >> /etc/php82/php.ini
-	
-# Create working directory
-# RUN mkdir -p /var/www/html
 
-# WORKDIR /var/www/html
+# Copiamos el archivo de configuración personalizado de php-fpm
+COPY ./www.conf /etc/php82/php-fpm.d/www.conf
+COPY ./tools/script.sh /script.sh
+RUN chmod +x /script.sh
 
-COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
-
-COPY tools/setup.sh /setup.sh
-RUN chmod +x /setup.sh
-
+# Exponemos el puerto 9000 para HTTP
 EXPOSE 9000
 
-# ? Comando que se ejecuta al arrancar
-CMD ["/setup.sh"]
+# Comando para iniciar php-fpm en primer plano. -F evita que se ejecute como daemon.
+CMD ["./script.sh"]
