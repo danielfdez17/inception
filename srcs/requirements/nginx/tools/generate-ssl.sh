@@ -26,7 +26,7 @@ echo "Generating SSL certificate..."
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout $SSL_DIR/nginx.key \
     -out $SSL_DIR/nginx.crt \
-    -subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/OU=Student/CN=gsoteldo.42.fr"
+    -subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/OU=Student/CN=danfern3.42.fr"
 
 # Ajustar permisos
 chmod 644 $SSL_DIR/nginx.crt

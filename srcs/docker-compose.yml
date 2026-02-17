@@ -45,7 +45,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/gsoteldo/data/web
+      device: /home/danfern3/data/web
       o: bind
 
   # Volumen Docker para la base de datos
@@ -53,7 +53,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/gsoteldo/data/mariadb
+      device: /home/danfern3/data/mariadb
       o: bind
 
 networks:
