@@ -3,6 +3,9 @@
 echo "Updating package lists..."
 sudo apt update && sudo apt upgrade -y
 
+echo "Installing Vim"
+sudo apt install vim -y
+
 echo "Installing zsh..."
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -27,6 +30,15 @@ alias grep='grep --color=auto'
 alias gss='git status -s'
 alias gw='git worktree'
 
+echo "Cloning Git repository..."
+if [ ! -d "inception" ]; then
+  rm -rf inception
+  git clone https://github.com/danielfdez17/inception.git
+fi
+
+cd inception
+git switch dev-alpine-2
+
 echo "Installing Docker"
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y ca-certificates curl gnupg
@@ -39,9 +51,9 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 sudo systemctl start docker
 sudo systemctl enable docker
 docker --version
-sudo docker run hello-world (check if it is installed)
-sudo usermod -aG docker $USER (to run docker without sudo)
+# sudo docker run hello-world (check if it is installed)
 newgrp docker
+sudo usermod -aG docker $USER # (to run docker without sudo)
 docker ps
 sudo systemctl enable docker
 
@@ -60,7 +72,7 @@ sudo apt install python3-pip -y
 echo "Installing distutils"
 pip install distutils
 
-echo "Installing Vim"
-sudo apt install vim -y
+sudo echo >> /etc/hosts
+sudo echo "127.0.1.1  danfern3.42.fr" >> /etc/hosts
 
 echo "Once the repo has been clone, run 'sudo chmod 777 -R .git/'"
