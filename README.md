@@ -20,5 +20,5 @@
 - Alpine penultimate, stable version (at this moment): https://hub.docker.com/layers/library/alpine/3.23.2/images/sha256-16ff8a639f58b38d94b054e94c106dbbd8a60d45f8b1989f98516a3e8e0792ad
 
 ## Use of AI
-- Check the syntax of docker-compose.yml and where to specify the services' version.
-- Generate a script that initializes folder structure and secret files
+- Check the syntax of docker-compose.yml, where to specify the services' version, and to generate scripts that create the inception's ifrastructure.
+- Generate a script that initializes folder structure and secret files. Check my other [repo](https://github.com/danielfdez17/scripts).
