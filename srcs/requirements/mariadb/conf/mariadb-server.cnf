@@ -1,3 +1,4 @@
+
 #
 # These groups are read by MariaDB server.
 # Use it for options that only the server (but not clients) should see
@@ -45,4 +46,5 @@ skip-name-resolve
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
 [mariadb-10.5]
+
 
