@@ -1,17 +1,18 @@
-# ! MARIADB Dockerfile
-# ? Sistema/Imagen base del que construir el servicio
-FROM alpine:3.20
+FROM alpine:3.19
 
-# ? Comandos ejecutados al construir la imagen
-RUN apk update && apk add --no-cache mariadb mariadb-client mariadb-server-utils
+# Install MariaDB and client
+RUN apk add --no-cache mariadb mariadb-client bash
 
-RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
+# Create necessary directories and set permissions
+RUN mkdir -p /run/mysqld /var/lib/mysql && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
-COPY tools/setup.sh /setup.sh
+# Copy config and initialization script
+COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/.
+COPY ./tools/setup.sh /setup.sh
 RUN chmod +x /setup.sh
 
-# ? Solo es documentación, no expone el puerto automáticamente
+# Expose MariaDB port
 EXPOSE 3306
 
-# ? Comando que se ejecuta al arrancar
-CMD ["/setup.sh"]
+# Main command
+ENTRYPOINT ["/setup.sh"]

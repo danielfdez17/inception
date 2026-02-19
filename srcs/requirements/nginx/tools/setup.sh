@@ -1,21 +1,25 @@
-#!/bin/sh
-set -e
+#!bin/sh
 
-echo "[NGINX] Generating SSL certificates..."
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-	-keyout /etc/nginx/ssl/nginx.key \
-	-out /etc/nginx/ssl/nginx.crt \
-	-subj "/C=ES/ST=Madrid/L=Madrid/O=42/OU=Inception/CN=danfern3.42.fr" 2>&1
+# Folder where certificates will be stored
+SSL_DIR="/etc/nginx/ssl"
+mkdir -p /etc/nginx/ssl
 
-echo "[NGINX] SSL certificates generated successfully"
-
-echo "[NGINX] Testing nginx configuration..."
-if nginx -t 2>&1; then
-	echo "[NGINX] Configuration test passed"
+# If the certificate and key already exist, skip generation to avoid overwriting
+if [ -f "/etc/nginx/ssl/nginx.crt" ] && [ -f "/etc/nginx/ssl/nginx.key" ]; then
+    echo "SSL certificates already exist. Skipping generation."
 else
-	echo "[NGINX] Configuration test FAILED!"
-	exit 1
+
+    echo "Generating SSL certificate..."
+
+    # Generate a self-signed certificate
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/OU=Student/CN=danfern3.42.fr"
+
+    # Set appropriate permissions for the certificate and key
+    chmod 644 /etc/nginx/ssl/nginx.crt
+    chmod 600 /etc/nginx/ssl/nginx.key
+
+    echo "SSL certificate generated successfully!"
+
 fi
 
-echo "[NGINX] Starting nginx in foreground mode..."
-exec nginx -g "daemon off;"
+nginx -g "daemon off;"
