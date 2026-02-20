@@ -48,6 +48,7 @@ The project data will be stored in the home of the user (danfern3 in this case) 
 ***As this project needs to be done on a VM, i decided to configure a FTP server in the VM to upload the project from the host OS***
 - [Set up FTP server on a VM](https://medium.com/@tpriyanshu/how-to-create-an-ftp-server-on-a-linux-virtual-machine-hosted-on-cloud-4f4eace5c8a5)
 - Important: enable :fountain_pen: write_access :fountain_pen: to upload the project to the VM
+
 First of all, network adapter needs to be updated. If it's not changed, the connection between host and VM will not be bidirectional (i.e. you can ping from VM to Host but not the reverse way)
 1. Open the settings of the VM
 2. Go to Network
