@@ -44,7 +44,7 @@ The project data will be stored in the home of the user (danfern3 in this case) 
 ```bash
 /home/danfern3/data
 ```
-# Important :a::l::e::r::t:
+# :warning: Important :warning:
 ***As this project needs to be done on a VM, i decided to configure a FTP server in the VM to upload the project from the host OS***
 - [Set up FTP server on a VM](https://medium.com/@tpriyanshu/how-to-create-an-ftp-server-on-a-linux-virtual-machine-hosted-on-cloud-4f4eace5c8a5)
 - Important: enable write_access to upload the project
