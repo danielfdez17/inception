@@ -7,5 +7,3 @@
 # Where to locate and manage credentials.
 
 # How to check the services are running.
-
-

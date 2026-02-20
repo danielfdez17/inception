@@ -14,8 +14,10 @@
 
 # How to set up the environment from scratch.
 ## Prerequisites
+- Virtual Box (7.0.18r162988)
+- ISO image of the latest version of [Lubuntu](https://cdimage.ubuntu.com/lubuntu/releases/noble/release/)
 
-## Configuration files ⚠
+## Configuration files
 
 ## Secrets
 
