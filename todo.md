@@ -1,0 +1,3 @@
+- [ ] Check utility of SSL Certificate by removing it and trying to access the web size via HTTPS, even though this has been tested when fixing the script to generate the inception infrastructure
+- [ ] How to access the admin panel?
+- [ ] Once a comment has been made by a normal user and approved by the administrator, rebuild the project to check the data persistence

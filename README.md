@@ -1,7 +1,11 @@
 *This project has been created as part of the 42 curriculum by danfern3*
 
+<br>
+
 # Description (present the project, including its goal and a brief overview)
-This projects aims to set up different services connected between each other to run on docker containers.
+This project consists of having you set up a small infrastructure composed of different
+services under specific rules. The whole project has to be done in a virtual machine. You
+have to use docker compose
 
 ## Virtual Machines vs Docker
 |Feature|Virtual Machine|Docker Container|
@@ -26,23 +30,41 @@ This projects aims to set up different services connected between each other to 
 |Management Capabilities|Environment variables might be quickest way to get started easily but managing them becomes tough as it often involves manual processes such as updating configurations on each system individually which might result in inconsistencies and potential security risks if not handled properly since it involves human intervention|Since it is centralized management for secrets allowing us to easily CRUD secrets through its interface or APIs and also it supports neat features like automatic rotation of secrets, helping us maintain secrets without human intervention|
 
 ## Docker Network vs Host Network
-- Bridge network allows containers to communicate with each other and the host
-- Host network allows containers to use host's network directly, providing higher performance but less isolation
+|Feature|Docker Network|Host Network|
+|:----|:-----------------:|:------------------:|
+|Communication|Docker (Bridge) network allows containers to communicate with each other and the host|Host network allows containers to use host's network directly|
+|Isolation|They are more isolated|They are less isolated|
 
 ## Docker Volumes vs Bind Mounts
+|Feature|Docker Volumes|Bind Mounts|
+|:----|:-----------------:|:------------------:|
+|Recommendation|Docker volume is the recommended method for storing data created and utilized by Docker containers is to use volumes.|Bind mount has existed from Docker's early versions. Comparatively speaking, bind mounts are less useful than volumes. |
+|When to use them|Docker volumes may be interacted with using CLIs and APIs.|Bind mounts cannot be accessed by CLI commands. You may still work instantly with them on the host system.|
+|Volume route/path|All you need is the volume name to mount it.|When using bind mounts for mounting, a route to the host computer must be supplied.|
+|Storage location|In /var/lib/docker/volumes, the volumes are stored.|On the host computer, a bind mount can be located anywhere.|
 
-# Instructions (any relevant info about compilation, installation, and/or execution)
+<br>
 
-# Resources (references related to the topic)
+# Instructions
+1. To install every dependency this project requires, check this [file](https://github.com/danielfdez17/scripts/blob/main/inception/install.sh).
+2. Clone the repo and build it: 
+```bash
+git clone https://github.com/danielfdez17/inception.git && cd inception && make all
+```
+3. To get more information read [USER_DOC.md](USER_DOC.md) or [DEV_DOC.md](DEV_DOC.md)
+
+<br>
+
+# Resources
 ## Links
-
 - [docker-compose.yml](https://dev.to/wallacefreitas/10-best-practices-for-writing-maintainable-docker-compose-files-4ca2) best practices.
 - [Official docker images.](https://hub.docker.com/)
 - [Dockerfile](https://developers.redhat.com/articles/2023/03/23/10-tips-writing-secure-maintainable-dockerfiles) best practices.
 - [Alpine penultimate](https://hub.docker.com/layers/library/alpine/3.23.2/images/sha256-16ff8a639f58b38d94b054e94c106dbbd8a60d45f8b1989f98516a3e8e0792ad), stable version (at this moment).
 - [Containers VS Virtual Machines.](https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/containers-vs-vm)
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) to correct the syntax of the READMEs.
-- [Secrets VS Environmental variables](https://medium.com/smallcase-engineering/decoding-security-secret-manager-or-environment-variables-9b9beb7c35b7)
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) VS Code extension to correct the syntax of the READMEs.
+- [Secrets VS Environmental variables.](https://medium.com/smallcase-engineering/decoding-security-secret-manager-or-environment-variables-9b9beb7c35b7)
+- [Docker Volume VS Bind Mount.](https://www.geeksforgeeks.org/devops/docker-volume-vs-bind-mount/)
 
 ## Use of AI
 - Check the syntax of docker-compose.yml, where to specify the services' version, and to generate scripts that create the inception's infrastructure.
