@@ -27,4 +27,14 @@ kill:
 
 re: down kill clean all
 
-.PHONY: all down clean re st
+help:
+	@echo "Available commands:"
+	@echo "  all    - Build, start, and attach to containers"
+	@echo "  down   - Stop and remove containers, networks, volumes, and images"
+	@echo "  clean  - Remove all stopped containers, unused networks, and dangling images"
+	@echo "  re     - Restart the entire application"
+	@echo "  st     - Show the status of the application"
+	@echo "  kill   - Stop and remove all containers"
+	@echo "  help   - Show this help message"
+
+.PHONY: all down clean re st help
