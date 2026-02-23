@@ -44,6 +44,15 @@ else
 	echo "WordPress is already installed."
 fi
 
+# Verify if WordPress normal user exists
+if ! php wp-cli.phar user get ${WORDPRESS_USER} --allow-root 2>/dev/null; then
+	echo "Creating WordPress user..."
+	php wp-cli.phar user create ${WORDPRESS_USER} ${WORDPRESS_USER}@example.com --role=author --user_pass=${WORDPRESS_PASSWORD} --allow-root
+	echo "WordPress user created successfully!"
+else
+	echo "WordPress user already exists."
+fi
+
 echo "Starting PHP-FPM..."
 exec php-fpm82 -F --allow-to-run-as-root
 echo "PHP-FPM started successfully!"
