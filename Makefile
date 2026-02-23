@@ -2,7 +2,7 @@ all: build up
 
 setup:
 	@echo "Setting up the volumes' folders..."
-	@if [ ! -d ~/data/wordpress ]; then mkdir -p ~/data/wordpress; fi
+	@if [ ! -d ~/data/web ]; then mkdir -p ~/data/web; fi
 	@if [ ! -d ~/data/mariadb ]; then mkdir -p ~/data/mariadb; fi
 
 down:
@@ -42,4 +42,4 @@ help:
 	@echo "  kill   - Stop and remove all containers"
 	@echo "  help   - Show this help message"
 
-.PHONY: all down clean re st help
+.PHONY: all down clean re st help setup
