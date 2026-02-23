@@ -30,7 +30,7 @@ kill:
 	@echo "Killing all running containers..."
 	docker compose -f srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
 
-re: down kill clean all
+re: down clean all
 
 help:
 	@echo "Available commands:"
