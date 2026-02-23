@@ -1,10 +1,20 @@
 all: build up
 
+setup:
+	@echo "Setting up the volumes..."
+	@if [ ! -d ~/data/wordpress ]; then \
+		mkdir -p ~/data/wordpress; \
+	fi
+
+	@if [ ! -d ~/data/mariadb ]; then
+		mkdir -p ~/data/mariadb; \
+	fi
+
 down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
 	docker compose -f srcs/docker-compose.yml down
 
-build:
+build: setup
 	@echo "Building Docker images without cache..."
 	docker compose -f srcs/docker-compose.yml build --no-cache
 
