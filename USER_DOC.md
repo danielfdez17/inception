@@ -17,7 +17,7 @@ This inception project has to offer only three services:
 1. Visit https://danfern3.42.fr.
 2. You will be propmted with the following warning.
 	<p align="center">
-	<img height="410px" title="Example 1" alt="Example 1" src="./images/SelfSigned_SSL_Warning.png">
+	<img height="410px" title="Self Signed Certificate" alt="Self Signed Certificate" src="./images/SelfSigned_SSL_Warning.png">
 	</p>
 3. Just ignore it by clicking `Advanced...` and the `lkajdslkjadñlkfjañdlskjf`
 
