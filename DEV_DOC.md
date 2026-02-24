@@ -69,10 +69,21 @@ First of all, network adapter needs to be updated. If it's not changed, the conn
 # ***Insert images***
 
 1. Open the settings of the VM.
+	<p align="center">
+	<img height="410px" title="VirtualBox Settings" alt="VirtualBox Settings" src="./images/VBoxSettings.png">
+	</p>
 2. Go to Network.
+	<p align="center">
+	<img height="410px" title="Network" alt="Network" src="./images/VBoxNetworks.png">
+	</p>
 3. In the dropdown "Attached to" select "Bridge Adapter".
+	<p align="center">
+	<img height="410px" title="Attached To Dropdown" alt="Attached To Dropdown" src="./images/VBoxNetworkDropdown.png">
+	</p>
 4. Save the changes.
-
+	<p align="center">
+	<img height="410px" title="Save Changes Button" alt="Save Changes Button" src="./images/VBoxNetworkSaveButton.png">
+	</p>
 <br>
 
 ### Setting up the FTP server in the VM
