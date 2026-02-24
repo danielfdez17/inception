@@ -15,7 +15,7 @@ build: setup
 
 up: build
 	@echo "Starting containers in detached mode..."
-	docker compose -f srcs/docker-compose.yml up
+	docker compose -f srcs/docker-compose.yml up -d
 
 clean: kill
 	@echo "Pruning Docker system to remove all unused data..."
@@ -23,7 +23,9 @@ clean: kill
 
 st:
 	@echo "Listing Docker images and running containers..."
+	@echo "Docker Images:"
 	docker images
+	@echo "Running Docker Containers:"
 	docker ps
 
 kill:
@@ -42,4 +44,4 @@ help:
 	@echo "  kill   - Stop and remove all containers"
 	@echo "  help   - Show this help message"
 
-.PHONY: all down clean re st help setup
+.PHONY: all setup down build up clean st kill re help
