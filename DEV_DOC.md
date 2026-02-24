@@ -43,14 +43,11 @@ To set up the project structure visit this [repo](https://github.com/danielfdez1
 ```
 
 ## Secrets
-To set up the environmental variables for the project visit this [repo](https://github.com/danielfdez17/scripts/blob/main/inception/scripts/env.sh)
+To set up the environmental variables for the project visit this [repo](https://github.com/danielfdez17/scripts/blob/main/inception/scripts/env.sh).
 
 
 # How to build and launch the project (Makefile + Docker Compose)
-The project will be compiled and executed by running
-```bash
-cd inception && make all
-```
+The project will be compiled and executed by running `cd inception && make all`
 
 # Relevant commands to deal with containers and volumes
 - To know what rules are available run `make help`.
@@ -61,20 +58,20 @@ cd inception && make all
 - To rebuild the project execute `make re`.
 
 # Where the project data is stored and how it persist
-The project data will be stored in the home of the user (danfern3 in this case) in the folder
-```bash
-/home/danfern3/data
-```
+The project data will be stored in the home of the user (danfern3 in this case) in the folder `/home/danfern3/data`.
+
 # :warning: Important :warning:
 ***As this project needs to be done on a VM, i decided to configure a FTP server in the VM to upload the project from the host OS.***
-- [Set up FTP server on a VM](https://medium.com/@tpriyanshu/how-to-create-an-ftp-server-on-a-linux-virtual-machine-hosted-on-cloud-4f4eace5c8a5)
-- Important: enable write_access to upload the project to the VM
+- [Set up FTP server on a VM](https://medium.com/@tpriyanshu/how-to-create-an-ftp-server-on-a-linux-virtual-machine-hosted-on-cloud-4f4eace5c8a5).
+- Important: enable write_access to upload the project to the VM.
 
 First of all, network adapter needs to be updated. If it's not changed, the connection between host and VM will not be bidirectional (i.e. you can ping from VM to Host but not the reverse way)
-1. Open the settings of the VM
-2. Go to Network
-3. In the dropdown "Attached to" select "Bridge Adapter"
-4. Save the changes
+# ***Insert images***
+
+1. Open the settings of the VM.
+2. Go to Network.
+3. In the dropdown "Attached to" select "Bridge Adapter".
+4. Save the changes.
 
 <br>
 
