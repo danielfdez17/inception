@@ -76,7 +76,7 @@ First of all, network adapter needs to be updated. If it's not changed, the conn
 	<p align="center">
 	<img height="410px" title="Network" alt="Network" src="./images/VBoxNetworks.png">
 	</p>
-3. In the dropdown "Attached to" select "Bridge Adapter".
+3. In the dropdown **Attached to** select ***Bridge Adapter***.
 	<p align="center">
 	<img height="410px" title="Attached To Dropdown" alt="Attached To Dropdown" src="./images/VBoxNetworkDropdown.png">
 	</p>
