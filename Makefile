@@ -5,6 +5,10 @@ setup:
 	@if [ ! -d ~/data/web ]; then mkdir -p ~/data/web; fi
 	@if [ ! -d ~/data/mariadb ]; then mkdir -p ~/data/mariadb; fi
 
+stop:
+	@echo "Stopping containers..."
+	docker compose -f srcs/docker-compose.yml stop
+
 down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
 	docker compose -f srcs/docker-compose.yml down
@@ -37,6 +41,8 @@ re: down clean all
 help:
 	@echo "Available commands:"
 	@echo "  all    - Build, start, and attach to containers"
+	@echo "  setup   - Create necessary directories for volumes"
+	@echo "  stop   - Stop running containers"
 	@echo "  down   - Stop and remove containers, networks, volumes, and images"
 	@echo "  clean  - Remove all stopped containers, unused networks, and dangling images"
 	@echo "  re     - Restart the entire application"
@@ -44,4 +50,4 @@ help:
 	@echo "  kill   - Stop and remove all containers"
 	@echo "  help   - Show this help message"
 
-.PHONY: all setup down build up clean st kill re help
+.PHONY: all setup stop down build up clean st kill re help
