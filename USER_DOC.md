@@ -19,7 +19,10 @@ This inception project has to offer only three services:
 	<p align="center">
 	<img height="410px" title="Self Signed Certificate" alt="Self Signed Certificate" src="./images/SelfSigned_SSL_Warning.png">
 	</p>
-3. Just ignore it by clicking `Advanced...` and the `lkajdslkjadñlkfjañdlskjf`
+3. Just ignore it by clicking `Advanced...` and the `Accept the Risk and Continue` button.
+	<p align="center">
+	<img height="410px" title="Self Signed Certificate" alt="Self Signed Certificate" src="./images/SSLAdvancedOptions.png">
+	</p>
 
 ### Access the administration panel
 1. Visit https://danfern3.42.fr/wp-admin
