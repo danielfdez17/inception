@@ -48,9 +48,19 @@ have to use docker compose
 # Instructions
 1. To install every dependency this project requires, check this [file](https://github.com/danielfdez17/scripts/blob/main/inception/install.sh).
 2. Clone the repo and build it: 
-```bash
-git clone https://github.com/danielfdez17/inception.git && cd inception && make all
-```
+
+	2.1. Clone the repo and get inside the folder
+	```bash
+	git clone https://github.com/danielfdez17/inception.git && cd inception
+	```
+	2.2 Copy the example environmental file and modify the values as you prefer
+	```bash
+	cp .env.example /srcs/.env
+	```
+	2.3 Build the application
+	```bash
+	make all
+	```
 3. To get more information read [USER_DOC.md](USER_DOC.md) or [DEV_DOC.md](DEV_DOC.md)
 
 <br>
@@ -65,6 +75,7 @@ git clone https://github.com/danielfdez17/inception.git && cd inception && make 
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) VS Code extension to correct the syntax of the READMEs.
 - [Secrets VS Environmental variables.](https://medium.com/smallcase-engineering/decoding-security-secret-manager-or-environment-variables-9b9beb7c35b7)
 - [Docker Volume VS Bind Mount.](https://www.geeksforgeeks.org/devops/docker-volume-vs-bind-mount/)
+- [Environmental variables best practices.](https://www.envsentinel.dev/blog/environment-variable-management-tips-best-practices)
 
 ## Use of AI
 - Check the syntax of docker-compose.yml, where to specify the services' version, and to generate scripts that create the inception's infrastructure.

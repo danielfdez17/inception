@@ -34,4 +34,6 @@ This inception project has to offer only three services:
 - If you want to change them, feel free to do it. If you do so, remember to restart the project.
 
 # How to check the services are running.
-- To check if the services are running, execute `make st` or `docker ps`
+- To check if the services are running, execute `make st` or `docker ps`.
+
+:warning: If there is no running docker container, check if the environmental variables has been set. :warning:
