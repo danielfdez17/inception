@@ -1,5 +1,5 @@
 - [x] Check utility of SSL Certificate by removing it and trying to access the web size via HTTPS, even though this has been tested when fixing the script to generate the inception infrastructure
 - [x] How to access the admin panel?
 - [x] Once a comment has been made by a normal user and approved by the administrator, rebuild the project to check the data persistence
-- [ ] Check markdown requirements carefully :important:
-- [ ] Add images in both USER_DOC.md and DEV_DOC.md files
+- [x] Check markdown requirements carefully :important:
+- [x] Add images in both USER_DOC.md and DEV_DOC.md files

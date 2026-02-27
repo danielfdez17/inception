@@ -1,4 +1,4 @@
-# How to set up the environment from scratch.
+# How to set up the environment from scratch
 ## Prerequisites
 - Virtual Box (7.0.18r162988).
 - ISO image of the latest version of [Lubuntu](https://cdimage.ubuntu.com/lubuntu/releases/noble/release/) (currently using lubuntu-24.04.4-desktop-amd64).
@@ -15,7 +15,12 @@ To set up the project structure visit this [repo](https://github.com/danielfdez1
 .
 ├── DEV_DOC.md
 ├── images
-│   └── SelfSigned_SSL_Warning.png
+│   ├── SelfSigned_SSL_Warning.png
+│   ├── SSLAdvancedOptions.png
+│   ├── VBoxNetworkDropdown.png
+│   ├── VBoxNetworkSaveButton.png
+│   ├── VBoxNetworks.png
+│   └── VBoxSettings.png
 ├── Makefile
 ├── README.md
 ├── srcs
@@ -58,7 +63,7 @@ The project will be compiled and executed by running `cd inception && make all`
 - To rebuild the project execute `make re`.
 
 # Where the project data is stored and how it persist
-The project data will be stored in the home of the user (danfern3 in this case) in the folder `/home/danfern3/data`.
+The project data will be stored in the home of the user (danfern3 in this case): `/home/danfern3/data`.
 
 # :warning: Important :warning:
 ***As this project needs to be done on a VM, i decided to configure a FTP server in the VM to upload the project from the host OS.***

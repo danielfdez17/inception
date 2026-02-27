@@ -2,10 +2,10 @@
 
 <br>
 
-# Description (present the project, including its goal and a brief overview)
+# Description (Project description)
 This project consists of having you set up a small infrastructure composed of different
 services under specific rules. The whole project has to be done in a virtual machine. You
-have to use docker compose
+have to use docker compose.
 
 ## Virtual Machines vs Docker
 |Feature|Virtual Machine|Docker Container|
