@@ -14,8 +14,10 @@ fi
 # Download WordPress and create wp-config.php if it doesn't exist
 if [ ! -f wp-config.php ]; then
 	echo "Downloading WordPress..."
-	php wp-cli.phar core download --allow-root
-	
+	if [ ! -d wp-admin ]; then
+		php wp-cli.phar core download --allow-root
+	fi
+
 	echo "Creating wp-config.php..."
 	php wp-cli.phar config create --dbname=${MARIADB_DATABASE} --dbuser=${MARIADB_USER} --dbpass=${MARIADB_PASSWORD} --dbhost=mariadb --allow-root
 	
