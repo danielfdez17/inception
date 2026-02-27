@@ -50,6 +50,31 @@ To set up the project structure visit this [repo](https://github.com/danielfdez1
 ## Secrets
 To set up the environmental variables for the project visit this [repo](https://github.com/danielfdez17/scripts/blob/main/inception/scripts/env.sh).
 
+## Update docker volumes location
+1. Stop docker
+```bash
+sudo systemctl stop docker
+```
+2. Create destination and move actual data (if there exists)
+```bash
+sudo mkdir -p /home/danfern3/data/docker
+sudo rsync -aHAX /var/lib/docker/ /home/danfern3/data/docker/
+```
+3. Setup daemon to use the new route
+```bash
+sudo touch /etc/docker/daemon.json
+echo '{"data-root": "/home/danfern3/data/docker"}' | sudo tee /etc/docker/daemon.json
+```
+4. Start docker
+```bash
+sudo systemctl start docker
+```
+5. Check the new location
+```bash
+docker info | grep "Docker Root Dir"
+docker volume ls
+```
+
 
 # How to build and launch the project (Makefile + Docker Compose)
 The project will be compiled and executed by running `cd inception && make all`

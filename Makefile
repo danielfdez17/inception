@@ -1,9 +1,9 @@
 all: build up
 
-setup:
-	@echo "Setting up the volumes' folders..."
-	@if [ ! -d ~/data/web ]; then mkdir -p ~/data/web; fi
-	@if [ ! -d ~/data/mariadb ]; then mkdir -p ~/data/mariadb; fi
+# setup:
+# 	@echo "Setting up the volumes' folders..."
+# 	@if [ ! -d ~/data/web ]; then mkdir -p ~/data/web; fi
+# 	@if [ ! -d ~/data/mariadb ]; then mkdir -p ~/data/mariadb; fi
 
 stop:
 	@echo "Stopping containers..."
@@ -13,7 +13,7 @@ down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
 	docker compose -f srcs/docker-compose.yml down
 
-build: setup
+build: #setup
 	@echo "Building Docker images without cache..."
 	docker compose -f srcs/docker-compose.yml build --no-cache
 
@@ -41,7 +41,7 @@ re: down clean all
 help:
 	@echo "Available commands:"
 	@echo "  all    - Build, start, and attach to containers"
-	@echo "  setup   - Create necessary directories for volumes"
+# 	@echo "  setup   - Create necessary directories for volumes"
 	@echo "  stop   - Stop running containers"
 	@echo "  down   - Stop and remove containers, networks, volumes, and images"
 	@echo "  clean  - Remove all stopped containers, unused networks, and dangling images"
