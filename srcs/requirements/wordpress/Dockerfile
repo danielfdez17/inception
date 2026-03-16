@@ -1,3 +1,9 @@
+FROM alpine:3.19 AS assets
+
+# Stage with only static files needed at runtime.
+COPY ./conf/www.conf /assets/conf/www.conf
+COPY ./tools/script.sh /assets/script.sh
+
 FROM alpine:3.19
 
 # Install PHP and necessary extensions
@@ -5,9 +11,9 @@ RUN --mount=type=cache,target=/var/cache/apk apk update && apk add --no-cache ph
 
 RUN echo "memory_limit = 256M" >> /etc/php82/php.ini
 
-# Copy custom php-fpm configuration
-COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
-COPY ./tools/script.sh /script.sh
+# Copy custom php-fpm configuration from assets stage
+COPY --from=assets /assets/conf/www.conf /etc/php82/php-fpm.d/www.conf
+COPY --from=assets /assets/script.sh /script.sh
 RUN chmod +x /script.sh
 
 # Expose port 9000 for PHP-FPM

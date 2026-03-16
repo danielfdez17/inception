@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 # Folder where certificates will be stored
 SSL_DIR="/etc/nginx/ssl"

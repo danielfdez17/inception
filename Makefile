@@ -6,6 +6,9 @@ COMPOSE = docker compose -f $(SOURCE_DIR)/docker-compose.yml --env-file $(SOURCE
 # ? 📦 The 'all' target builds the Docker images and starts the containers in detached mode.
 all: build up
 
+# ? ⚡ Fast path: builds with cache and starts containers in detached mode.
+all-fast: build-fast up-fast
+
 # ? ⚙️  Sets up the project environment by copying the example environment file to the actual .env file.
 setup:
 	@echo "Setting up the project environment..."
@@ -27,8 +30,18 @@ build: setup
 	@echo "Building Docker images without cache..."
 	$(COMPOSE) build --no-cache
 
+# ? ⚡ Builds Docker images using cache for faster local iterations.
+build-fast: setup
+	@echo "Building Docker images with cache..."
+	$(COMPOSE) build
+
 # ? 🚀 Builds the images and starts the containers in detached mode.
 up: build
+	@echo "Starting containers in detached mode..."
+	$(COMPOSE) up -d
+
+# ? ⚡ Starts containers after cached build.
+up-fast: build-fast
 	@echo "Starting containers in detached mode..."
 	$(COMPOSE) up -d
 
@@ -68,4 +81,4 @@ help:
 			desc = ""; \
 		}' $(firstword $(MAKEFILE_LIST))
 
-.PHONY: all setup stop down build up clean status kill re help
+.PHONY: all all-fast setup stop down build build-fast up up-fast clean status kill re help
