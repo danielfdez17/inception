@@ -59,6 +59,11 @@ status:
 	@echo "Running Docker Containers:"
 	docker ps
 
+# ? 📜 Shows real-time logs for all containers.
+logs:
+	@echo "Showing logs for all containers..."
+	$(COMPOSE) logs -f
+
 # # ? 🔪 Stops and removes all containers, networks, volumes, and images associated with the project.
 # kill:
 # 	@echo "Killing all running containers..."
