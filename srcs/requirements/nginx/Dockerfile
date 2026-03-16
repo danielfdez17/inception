@@ -2,7 +2,7 @@
 FROM alpine:3.19
 
 # Install Nginx and OpenSSL
-RUN apk update && apk add --no-cache nginx openssl
+RUN --mount=type=cache,target=/var/cache/apk apk add --no-cache nginx openssl
 
 # Folder for Nginx runtime files and SSL certificates
 RUN mkdir -p /run/nginx /etc/nginx/ssl

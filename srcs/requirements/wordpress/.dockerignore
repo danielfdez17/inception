@@ -1,0 +1,10 @@
+# Ignore everything in this build context by default.
+*
+
+# Include only files needed by the wordpress Dockerfile.
+!.dockerignore
+!Dockerfile
+!conf/
+!conf/www.conf
+!tools/
+!tools/script.sh

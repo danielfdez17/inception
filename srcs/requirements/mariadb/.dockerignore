@@ -1,0 +1,10 @@
+# Ignore everything in this build context by default.
+*
+
+# Include only files needed by the mariadb Dockerfile.
+!.dockerignore
+!Dockerfile
+!conf/
+!conf/mariadb-server.cnf
+!tools/
+!tools/setup.sh

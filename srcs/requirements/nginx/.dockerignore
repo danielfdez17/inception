@@ -1,0 +1,10 @@
+# Ignore everything in this build context by default.
+*
+
+# Include only files needed by the nginx Dockerfile.
+!.dockerignore
+!Dockerfile
+!conf/
+!conf/nginx.conf
+!tools/
+!tools/setup.sh

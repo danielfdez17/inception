@@ -1,37 +1,42 @@
 # ? Makefile for managing Docker containers and images for the project.
 
+SOURCE_DIR := srcs
+COMPOSE = docker compose -f $(SOURCE_DIR)/docker-compose.yml --env-file $(SOURCE_DIR)/.env
+
 # ? 📦 The 'all' target builds the Docker images and starts the containers in detached mode.
 all: build up
 
-# setup:
-# 	@echo "Setting up the volumes' folders..."
-# 	@if [ ! -d ~/data/web ]; then mkdir -p ~/data/web; fi
-# 	@if [ ! -d ~/data/mariadb ]; then mkdir -p ~/data/mariadb; fi
+# ? ⚙️  Sets up the project environment by copying the example environment file to the actual .env file.
+setup:
+	@echo "Setting up the project environment..."
+	@cp .env.example $(SOURCE_DIR)/.env
+	@echo "Environment file created at $(SOURCE_DIR)/.env"
 
 # ? 🛑 Stops all running containers without removing them.
 stop:
 	@echo "Stopping containers..."
-	docker compose -f srcs/docker-compose.yml stop
+	$(COMPOSE) stop
 
 # ? 🏗️  Stops and removes all containers, networks, volumes, and images associated with the project.
 down:
 	@echo "Stopping and removing containers, networks, volumes, and images..."
-	docker compose -f srcs/docker-compose.yml down
+	$(COMPOSE) down
 
 # ? 🔨 Builds the Docker images without using the cache.
-build: #setup
+build: setup
 	@echo "Building Docker images without cache..."
-	docker compose -f srcs/docker-compose.yml build --no-cache
+	$(COMPOSE) build --no-cache
 
 # ? 🚀 Builds the images and starts the containers in detached mode.
 up: build
 	@echo "Starting containers in detached mode..."
-	docker compose -f srcs/docker-compose.yml up -d
+	$(COMPOSE) up -d
 
 # ? 🧹 Stops and removes all containers, networks, volumes, and images, then prunes the Docker system to remove all unused data.
-clean: kill
+clean: down
 	@echo "Pruning Docker system to remove all unused data..."
-	docker system prune -a --volumes -f
+	$(COMPOSE) down --rmi all --volumes --remove-orphans
+# 	$(COMPOSE) system prune -a --volumes -f
 
 # ? 📊 Lists all Docker images and running containers.
 status:
@@ -41,10 +46,10 @@ status:
 	@echo "Running Docker Containers:"
 	docker ps
 
-# ? 🔪 Stops and removes all containers, networks, volumes, and images associated with the project.
-kill:
-	@echo "Killing all running containers..."
-	docker compose -f srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
+# # ? 🔪 Stops and removes all containers, networks, volumes, and images associated with the project.
+# kill:
+# 	@echo "Killing all running containers..."
+# 	$(COMPOSE) down --rmi all --volumes --remove-orphans
 
 # ? ♻️  Rebuilds the images, stops and removes containers, networks, volumes, and images, then rebuilds and starts the containers again.
 re: down clean all

@@ -1,7 +1,7 @@
 FROM alpine:3.19
 
 # Install MariaDB and client
-RUN apk add --no-cache mariadb mariadb-client bash
+RUN --mount=type=cache,target=/var/cache/apk apk add --no-cache mariadb mariadb-client
 
 # Create necessary directories and set permissions
 RUN mkdir -p /run/mysqld /var/lib/mysql && chown -R mysql:mysql /run/mysqld /var/lib/mysql
